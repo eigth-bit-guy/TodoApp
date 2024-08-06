@@ -10,7 +10,7 @@ public:
 
 int TextFont::set_text_and_font(sf::Text *text, sf::Font *font)
 {
-  const char *fontPath = "font/fantasquesansmono-regular.otf";
+  const char *fontPath = "font/fantasquesansmono-regular.otf"; //add macro for this
   if (!font->loadFromFile(fontPath)){
     std::cout << "Error: When load font from file\n";
     return -1;
