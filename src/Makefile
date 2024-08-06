@@ -3,7 +3,7 @@ CXX=g++
 TARGET=TodoApp
 WARN=-Wall
 CXXFLAGS=$(WARN) $(SFML)
-OBJS=main.o
+OBJS=main.o text.o
 LD=g++
 
 all: $(OBJS)
@@ -12,4 +12,7 @@ all: $(OBJS)
 	@./$(TARGET)
 
 main.o: main.cc
-	$(CXX) -c main.cc $(CXXFLAGS) 
+	$(CXX) -c main.cc $(CXXFLAGS)
+
+text.o: text.cc
+	$(CXX) -c text.cc $(CXXFLAGS)

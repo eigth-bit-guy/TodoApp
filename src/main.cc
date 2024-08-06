@@ -1,50 +1,50 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include "text.hpp"
 
 int
 main(int argc, char **argv)
 {
-  static bool kPress;
+  TextFont tf;
+  int err;
   sf::Event event;
   sf::Text text;
   sf::Font font;
-  const char *fontPath = "font/fantasquesansmono-regular.otf";
-  if (!font.loadFromFile(fontPath)){
-    std::cout << "Error: When load font from file\n";
+
+  err = tf.set_text_and_font(&text, &font);
+  if(err == -1){
+    std::cout << "Error: set_text_and_font\n";
     return -1;
   }
-  text.setFont(font);
-  text.setString("Hello World!"); // set string
-  text.setCharacterSize(24);
-  text.setFillColor(sf::Color::Black);
   
-
   sf::RenderWindow window(sf::VideoMode(300, 600), "TodoApp");
  
-  while (window.isOpen())
-    {
-      while (window.pollEvent(event))
-        {
-	  switch(event.type){
+  while (window.isOpen()) {
+    
+    while (window.pollEvent(event)) {
+	
+      switch(event.type) {
 	    
-	  case sf::Event::Closed:
-	    window.close();
-	    break;
+      case sf::Event::Closed:
+	window.close();
+	break;
 
-	  case sf::Event::EventType::KeyPressed:
-	    if(event.key.code == sf::Keyboard::Space){
-	      std::cout << "INFO: space key press\n";
-	    }
-	    break;
+      case sf::Event::EventType::KeyPressed:
+	if(event.key.code == sf::Keyboard::Space){
+	  std::cout << "INFO: space key press\n";
+	}else if(event.key.code == sf::Keyboard::Escape){
+	  std::cout << "INFO: escape key press\n";
+	}
+	break;
 
-	  case sf::Event::MouseButtonPressed:
-	    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	      std::cout << "Você clicou com o botao direito\n";
-	    break;
+      case sf::Event::MouseButtonPressed:
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	  std::cout << "INFO: você clicou com o botao direito\n";
+	break;
 	    
-	  }
-        }
+      }
+    }
 
       window.clear(sf::Color::White);
       window.draw(text);
@@ -52,4 +52,5 @@ main(int argc, char **argv)
     }
 
   return 0;
+
 } 
