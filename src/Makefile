@@ -16,3 +16,5 @@ main.o: main.cc
 
 text.o: text.cc
 	$(CXX) -c text.cc $(CXXFLAGS)
+clean:
+	rm -rf *.o
