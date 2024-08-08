@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
@@ -14,15 +13,15 @@ main(int argc, char **argv)
   sf::Texture texture;
   size_t interartorString = 0;
 
-  const char *fontPath = "font/fantasquesansmono-regular.otf"; //add macro for this
+  const char *fontPath = "font/fantasquesansmono-regular.otf"; //TODO: add macro for this
   const char *texturePath = "font/bitmap_font/bitmap_font.png";
 
   if (!font.loadFromFile(fontPath)){
-    std::cout << "Error: When load font from file\n";
+    std::cout << "ERROR: When load font from file\n";
     return -1;
   }
   if(!texture.loadFromFile(texturePath)){
-    std::cout << "INFO: error when load texture from file\n";
+    std::cout << "ERROR: error when load texture from file\n";
     return -1;
   }
 
@@ -56,7 +55,7 @@ main(int argc, char **argv)
 	    interartorString = interartorString - 1;
 	  }else
 	    break;
-	}else if(event.text.unicode == 13){
+	}else if(event.text.unicode == 13){ //enter
 	  stringBuffer.insert(interartorString, '\n');
 	  interartorString += 1;
 	}else{
