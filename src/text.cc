@@ -18,7 +18,7 @@ TextFont::set_font(sf::Text *text, sf::Font *font)
 }
 
 void
-TextFont::input_text_to_buf(Editor *e , char ch, sf::Text *text)
+TextFont::input_text_to_buff(Editor *e , char ch, sf::Text *text)
 {
   insert_buff(e, &ch, 1, text);
 }
@@ -26,10 +26,10 @@ TextFont::input_text_to_buf(Editor *e , char ch, sf::Text *text)
 void
 TextFont::insert_buff(Editor *e, char *x, size_t buff_len, sf::Text *text)
 {
-  for(size_t i = 0; i < buff_len, i++){
-    e->sb.buff[e->sb.count] = x;
+  for(size_t i = 0; i < buff_len; i++){
+    e->sb->buff[e->sb->count] = *x;
   }
-  e->sb.count += 1;
+  e->sb->count += 1;
 
-  text.setString(e->sb.buff);
+  text->setString(e->sb->buff);
 }
