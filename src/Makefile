@@ -1,9 +1,9 @@
-SFML=-lsfml-graphics -lsfml-window -lsfml-system
-CXX=g++
+SFML=-Iinclude/ -lsfml-graphics -lsfml-window -lsfml-system  -ltgui -Llib
+CXX=g++ -std=c++17
 TARGET=TodoApp
 WARN=-Wall
-CXXFLAGS=$(WARN) $(SFML)
-OBJS=main.o # text.o
+CXXFLAGS=$(WARN) $(SFML) 
+OBJS=main.o
 LD=g++
 
 all: $(OBJS)

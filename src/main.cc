@@ -1,6 +1,14 @@
 #include <iostream>
+#include <TGUI/TGUI.hpp>
+#include <TGUI/Backend/SFML-Graphics.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Keyboard.hpp>
+
+bool
+runExample(tgui::BackendGui& gui)
+{
+  return true;
+}
 
 int
 main(int argc, char **argv)
@@ -29,7 +37,11 @@ main(int argc, char **argv)
   text.setCharacterSize(24);
   text.setFillColor(sf::Color::Black);
   
-  window.create(sf::VideoMode(800, 600), "TodoApp");
+  window.create(sf::VideoMode(400,360), "TodoApp");
+  tgui::Gui gui{window};
+  if(runExample(gui))
+    gui.mainLoop();
+
   sf::Vector2u vec = window.getSize();
   unsigned int wh = vec.x / 2;
   unsigned int hg = vec.y / 2;
@@ -40,14 +52,11 @@ main(int argc, char **argv)
     
     while (window.pollEvent(event)) {
       
-      switch(event.type) {
-	    
-      case sf::Event::Closed:
+      if(event.type == sf::Event::Closed){
 	std::cout << "INFO: close button pressed\n";
         window.close();
-	break;
-
-      case sf::Event::TextEntered:
+      }
+      if(event.type == sf::Event::TextEntered){
 	std::cout << "INFO: entrada de texto: " << event.text.unicode << "\n";
 	if(event.text.unicode == 8){ //backspace
 	  stringBuffer.erase(interartorString - 1, 1);
@@ -65,7 +74,6 @@ main(int argc, char **argv)
 	text.setString(stringBuffer);
 	// std::cout << "interator size: " << interartorString << "\n";
 	// std::cout << "string buffer value: " << (std::string)stringBuffer << "\n";
-	break;
       }
     }
 
