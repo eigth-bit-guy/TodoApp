@@ -1,4 +1,4 @@
-SFML=-Iinclude/ -lsfml-graphics -lsfml-window -lsfml-system  -ltgui -Llib
+SFML=-lsfml-graphics -lsfml-window -lsfml-system -L/home/samuel/Documentos/fun/TGUI-1.x/build/lib -ltgui
 CXX=g++ -std=c++17
 TARGET=TodoApp
 WARN=-Wall
@@ -8,11 +8,10 @@ LD=g++
 
 all: $(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(CXXFLAGS)
+	@rm -rf *.o
 
 main.o: main.cc
 	$(CXX) -c main.cc $(CXXFLAGS)
 
-# text.o: text.cc
-# 	$(CXX) -c text.cc $(CXXFLAGS)
 clean:
 	rm -rf *.o

@@ -1,14 +1,9 @@
 #include <iostream>
 #include <TGUI/TGUI.hpp>
 #include <TGUI/Backend/SFML-Graphics.hpp>
+#include <TGUI/Widgets/Label.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Keyboard.hpp>
-
-bool
-runExample(tgui::BackendGui& gui)
-{
-  return true;
-}
 
 int
 main(int argc, char **argv)
@@ -20,6 +15,8 @@ main(int argc, char **argv)
   sf::RenderWindow window;
   sf::Texture texture;
   size_t interartorString = 0;
+  tgui::Gui gui;
+  tgui::Theme theme;
 
   const char *fontPath = "font/fantasquesansmono-regular.otf"; //TODO: add macro for this
   const char *texturePath = "font/bitmap_font/bitmap_font.png";
@@ -35,13 +32,12 @@ main(int argc, char **argv)
 
   text.setFont(font);
   text.setCharacterSize(24);
-  text.setFillColor(sf::Color::Black);
+  text.setFillColor(sf::Color::White);
   
   window.create(sf::VideoMode(400,360), "TodoApp");
-  tgui::Gui gui{window};
-  if(runExample(gui))
-    gui.mainLoop();
-
+  gui.setWindow(window);
+  auto canvas = tgui::CanvasSFML::create({400, 300});
+  gui.add(canvas);
   sf::Vector2u vec = window.getSize();
   unsigned int wh = vec.x / 2;
   unsigned int hg = vec.y / 2;
@@ -52,6 +48,8 @@ main(int argc, char **argv)
     
     while (window.pollEvent(event)) {
       
+      gui.handleEvent(event);
+      
       if(event.type == sf::Event::Closed){
 	std::cout << "INFO: close button pressed\n";
         window.close();
@@ -59,11 +57,13 @@ main(int argc, char **argv)
       if(event.type == sf::Event::TextEntered){
 	std::cout << "INFO: entrada de texto: " << event.text.unicode << "\n";
 	if(event.text.unicode == 8){ //backspace
+	  if(interartorString == 0)
+	    break;
+
 	  stringBuffer.erase(interartorString - 1, 1);
 	  if(interartorString != 0){
 	    interartorString = interartorString - 1;
-	  }else
-	    break;
+	  }
 	}else if(event.text.unicode == 13){ //enter
 	  stringBuffer.insert(interartorString, '\n');
 	  interartorString += 1;
@@ -72,12 +72,10 @@ main(int argc, char **argv)
 	  interartorString += 1;
 	}
 	text.setString(stringBuffer);
-	// std::cout << "interator size: " << interartorString << "\n";
-	// std::cout << "string buffer value: " << (std::string)stringBuffer << "\n";
       }
     }
 
-    window.clear(sf::Color::White);
+    window.clear(sf::Color::Black);
     window.draw(text);
     window.display();
   }
