@@ -1,4 +1,4 @@
-SFML=-lsfml-graphics -lsfml-window -lsfml-system -L/home/samuel/Documentos/fun/TGUI-1.x/build/lib -ltgui
+SFML=-lsfml-graphics -lsfml-window -lsfml-system -Llib -ltgui
 CXX=g++ -std=c++17
 TARGET=TodoApp
 WARN=-Wall
