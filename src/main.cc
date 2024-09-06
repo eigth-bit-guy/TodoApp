@@ -34,7 +34,7 @@ main(int argc, char **argv)
   text.setCharacterSize(24);
   text.setFillColor(sf::Color::White);
   
-  window.create(sf::VideoMode(400,360), "TodoApp");
+  window.create(sf::VideoMode(350,650), "TodoApp");
   gui.setWindow(window);
   auto canvas = tgui::CanvasSFML::create({400, 300});
   gui.add(canvas);
@@ -42,8 +42,8 @@ main(int argc, char **argv)
   unsigned int wh = vec.x / 2;
   unsigned int hg = vec.y / 2;
   window.setPosition(sf::Vector2i(wh, hg));
-  window.setVerticalSyncEnabled(true); // frame
-
+  window.setVerticalSyncEnabled(true);
+  
   while (window.isOpen()) {
     
     while (window.pollEvent(event)) {
@@ -56,7 +56,7 @@ main(int argc, char **argv)
       }
       if(event.type == sf::Event::TextEntered){
 	std::cout << "INFO: entrada de texto: " << event.text.unicode << "\n";
-	if(event.text.unicode == 8){ //backspace
+	if(event.text.unicode == 8){
 	  if(interartorString == 0)
 	    break;
 
